@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+/* Foco visible en todo elemento interactivo (WCAG 2.4.7, nivel AA). */
+:focus-visible {
+  outline: 3px solid var(--color-blue-700);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Respeto por la preferencia de movimiento reducido (WCAG 2.3.3). */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
