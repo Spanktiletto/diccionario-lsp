@@ -1,0 +1,10 @@
+# Normalización de fin de línea: LF en el repositorio.
+* text=auto eol=lf
+
+# Binarios: nunca normalizar.
+*.gif binary
+*.png binary
+*.jpg binary
+*.keras binary
+*.h5 binary
+*.npy binary

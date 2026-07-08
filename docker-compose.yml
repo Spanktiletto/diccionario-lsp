@@ -1,0 +1,25 @@
+# Tooling de desarrollo: levanta ÚNICAMENTE PostgreSQL local.
+# La aplicación no depende de Docker; es solo comodidad para la BD.
+#   Levantar:  docker compose up -d
+#   Detener:   docker compose down
+#   Borrar BD: docker compose down -v
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: diccionario_lsp_db
+    environment:
+      POSTGRES_DB: diccionario_lsp
+      POSTGRES_USER: lsp
+      POSTGRES_PASSWORD: lsp_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lsp -d diccionario_lsp"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  pgdata:

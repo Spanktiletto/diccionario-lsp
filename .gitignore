@@ -1,0 +1,36 @@
+# ── Python ──────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+.venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ── Node / frontend ─────────────────────────────────────
+node_modules/
+frontend/dist/
+frontend/coverage/
+
+# ── Entorno y secretos ──────────────────────────────────
+.env
+.env.local
+.env.*.local
+
+# ── Modelos pesados y artefactos de entrenamiento ───────
+# (el mapa de clases clases.json SÍ se versiona)
+ml/modelos/*.keras
+ml/modelos/*.h5
+ml/modelos/*.tflite
+ml/modelos/checkpoints/
+
+# ── Salidas de instrumentación (latencias, logs) ────────
+backend/registros/
+*.log
+
+# ── Sistema operativo / editores ────────────────────────
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
