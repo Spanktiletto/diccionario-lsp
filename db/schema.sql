@@ -8,7 +8,7 @@
 -- sesiones: la aplicación es pública.
 --
 -- Aplicar:
---   psql postgresql://lsp:lsp_dev@localhost:5432/diccionario_lsp -f db/schema.sql
+--   psql postgresql://lsp:lsp_dev@localhost:5433/diccionario_lsp -f db/schema.sql
 -- ============================================================
 
 CREATE TABLE categoria (

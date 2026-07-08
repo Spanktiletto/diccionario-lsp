@@ -84,8 +84,8 @@ docker compose exec -T db psql -U lsp -d diccionario_lsp < db/seeds/abecedario.s
 O, si tienes el cliente `psql` instalado:
 
 ```bash
-psql postgresql://lsp:lsp_dev@localhost:5432/diccionario_lsp -f db/schema.sql
-psql postgresql://lsp:lsp_dev@localhost:5432/diccionario_lsp -f db/seeds/abecedario.sql
+psql postgresql://lsp:lsp_dev@localhost:5433/diccionario_lsp -f db/schema.sql
+psql postgresql://lsp:lsp_dev@localhost:5433/diccionario_lsp -f db/seeds/abecedario.sql
 ```
 
 Verificación rápida — deben salir las 27 letras y las 3 dinámicas (J, Ñ, Z) intactas:

@@ -1,0 +1,5 @@
+# Dependencias de desarrollo y pruebas.
+-r requirements.txt
+pytest>=8.0
+pytest-cov>=5.0
+pillow>=10.1          # regenerar GIFs placeholder (db/seeds/generar_gifs_placeholder.py)

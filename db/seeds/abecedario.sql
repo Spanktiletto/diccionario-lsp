@@ -24,7 +24,7 @@
 --       docker compose cp db/seeds/abecedario.sql db:/tmp/abecedario.sql
 --       docker compose exec db psql -U lsp -d diccionario_lsp -f /tmp/abecedario.sql
 --   · Cliente psql nativo:
---       psql postgresql://lsp:lsp_dev@localhost:5432/diccionario_lsp -f db/seeds/abecedario.sql
+--       psql postgresql://lsp:lsp_dev@localhost:5433/diccionario_lsp -f db/seeds/abecedario.sql
 --
 -- Verificación: SELECT texto FROM palabra WHERE NOT es_estatica;
 -- debe devolver J, Ñ y Z intactas.
