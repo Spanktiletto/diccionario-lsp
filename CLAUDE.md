@@ -6,7 +6,7 @@ Aplicación web pública que acompaña la tesis "Implementación de un diccionar
 
 - **App pública sin usuarios:** NO implementar login, registro, autenticación, roles, sesiones de usuario, panel administrativo ni tablas de usuarios. Nunca. Si una librería o patrón lo sugiere, rechazarlo.
 - **Privacidad:** los fotogramas de la cámara se procesan y se descartan; jamás se almacenan imágenes del usuario. Del dataset solo se guardan vectores de landmarks, nunca fotos.
-- **Alcance del modelo:** 24 señas ESTÁTICAS del alfabeto dactilológico. J y Z (dinámicas) solo aparecen como GIFs consultables (`es_estatica = false`).
+- **Alcance del modelo:** 24 señas ESTÁTICAS del alfabeto dactilológico. J, Z y Ñ (dinámicas) solo aparecen como GIFs consultables (`es_estatica = false`).
 - **Datos reales únicamente:** no generar señas, GIFs ni registros ficticios. El contenido llega por el módulo de importación (API de señas que proporcionará el usuario, o archivos JSON/CSV). Para desarrollo, usar solo los seeds del alfabeto con GIFs placeholder claramente marcados.
 - **Terminología:** "Lengua de Señas Peruana" (no "Lenguaje"); "persona sorda" (nunca "sordomudo").
 
@@ -28,6 +28,7 @@ backend/tests/       # pytest
 frontend/            # React + Vite + Tailwind (SPA)
 ml/dataset/          # vectores de landmarks etiquetados (nunca imágenes)
 ml/scripts/          # capturar_muestras.py, entrenar.py, evaluar.py
+ml/modelos/          # modelo .keras (no versionado) + clases.json (versionado)
 db/                  # schema.sql, seeds del alfabeto
 docs/                # ESPECIFICACION_TECNICA.md
 media/gifs/          # GIFs de señas servidos como estáticos
@@ -38,7 +39,7 @@ media/gifs/          # GIFs de señas servidos como estáticos
 1. Página principal con búsqueda instantánea (autocompletado por prefijo; índice LOWER + varchar_pattern_ops)
 2. Vista detallada de palabra: GIF en bucle + categoría + descripción de ejecución
 3. Exploración por categorías
-4. Abecedario dactilológico completo (27 letras como GIFs; 24 reconocibles)
+4. Abecedario dactilológico completo (27 letras como GIFs; 24 reconocibles — J, Z y Ñ son dinámicas)
 5. Reconocimiento por cámara: POST /api/reconocer → landmarks → predicción → {letra, confianza}
 6. Composición de palabras deletreadas (acumular letras en campo editable)
 7. Guía de uso del reconocimiento

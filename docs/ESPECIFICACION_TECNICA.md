@@ -15,7 +15,7 @@ El sistema es un **diccionario web público de la Lengua de Señas Peruana**, im
 | RF01 | El sistema permitirá buscar palabras en español mediante un campo de búsqueda con coincidencia parcial (autocompletado). | Alta |
 | RF02 | El sistema mostrará, para cada palabra encontrada, su seña en formato GIF animado en bucle, junto con la palabra y su categoría. | Alta |
 | RF03 | El sistema permitirá explorar las palabras por categoría temática (p. ej., alfabeto, saludos, familia, números). | Media |
-| RF04 | El sistema presentará el alfabeto dactilológico completo, con el GIF de cada letra, incluidas las letras dinámicas J y Z. | Alta |
+| RF04 | El sistema presentará el alfabeto dactilológico completo, con el GIF de cada letra, incluidas las letras dinámicas J, Z y Ñ. | Alta |
 | RF05 | El sistema permitirá activar la cámara web del usuario, previa autorización del navegador, para el reconocimiento de señas. | Alta |
 | RF06 | El sistema reconocerá en tiempo real las señas estáticas del alfabeto dactilológico ejecutadas frente a la cámara y mostrará la letra predicha con su nivel de confianza. | Alta |
 | RF07 | El sistema permitirá al usuario componer palabras deletreadas: las letras reconocidas se irán acumulando en un campo de texto editable. | Media |
@@ -174,7 +174,7 @@ erDiagram
     }
 ```
 
-El atributo `es_letra` distingue las entradas del alfabeto; `es_estatica` indica si la seña es reconocible por el modelo (falso para J y Z); `clase_modelo` vincula la letra con el índice de clase del clasificador, permitiendo que el resultado de una predicción enlace directamente con la entrada del diccionario.
+El atributo `es_letra` distingue las entradas del alfabeto; `es_estatica` indica si la seña es reconocible por el modelo (falso para las letras dinámicas J, Z y Ñ: 27 − 3 = 24 clases estáticas); `clase_modelo` vincula la letra con el índice de clase del clasificador, permitiendo que el resultado de una predicción enlace directamente con la entrada del diccionario.
 
 ### 4.4.2. Modelo físico (PostgreSQL)
 
@@ -266,7 +266,7 @@ Principios rectores: interfaz predominantemente visual, textos breves y llanos, 
 │                                            │   │  ┌──────────────────────┐  Letra:          │
 │  [A] [B] [C] [D] [E] [F] [G]               │   │  │                      │  ┌─────┐         │
 │  [H] [I] [J*] [K] [L] [M] [N]              │   │  │   VIDEO EN VIVO      │  │  A  │  92 %   │
-│  [Ñ] [O] [P] [Q] [R] [S] [T]               │   │  │   (tu cámara)        │  └─────┘         │
+│  [Ñ*] [O] [P] [Q] [R] [S] [T]              │   │  │   (tu cámara)        │  └─────┘         │
 │  [U] [V] [W] [X] [Y] [Z*]                  │   │  │                      │  Palabra:        │
 │                                            │   │  └──────────────────────┘  [ A N A _ ]     │
 │  * señas con movimiento (solo consulta)    │   │  [Iniciar] [Borrar] [Espacio]              │
