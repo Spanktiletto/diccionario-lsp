@@ -1,0 +1,8 @@
+{
+  "descripcion": "Mapa canónico letra <-> índice de clase del modelo (24 señas estáticas del alfabeto dactilológico de la Lengua de Señas Peruana). Fuente única de verdad para el entrenamiento (ml/scripts/entrenar.py), la evaluación (ml/scripts/evaluar.py) y la base de datos (sena.clase_modelo). El índice de cada letra es su posición en el arreglo 'clases'.",
+  "letras_dinamicas": ["J", "Z", "Ñ"],
+  "clases": [
+    "A", "B", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M",
+    "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y"
+  ]
+}

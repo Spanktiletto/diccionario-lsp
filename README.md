@@ -61,16 +61,46 @@ media/gifs/          # GIFs de señas servidos como estáticos
 docker compose up -d          # levanta PostgreSQL local
 ```
 
-Aplicar el esquema con el `psql` del propio contenedor (no requiere cliente en el host):
+Aplicar el esquema y los seeds del abecedario con el `psql` del propio
+contenedor (no requiere cliente en el host). Los archivos son UTF-8 y
+contienen la letra Ñ: usa una vía que preserve la codificación.
+
+En PowerShell (⚠️ no uses `Get-Content |`: corrompe la Ñ):
 
 ```powershell
-Get-Content db/schema.sql | docker compose exec -T db psql -U lsp -d diccionario_lsp
+docker compose cp db/schema.sql db:/tmp/schema.sql
+docker compose cp db/seeds/abecedario.sql db:/tmp/abecedario.sql
+docker compose exec db psql -U lsp -d diccionario_lsp -f /tmp/schema.sql
+docker compose exec db psql -U lsp -d diccionario_lsp -f /tmp/abecedario.sql
+```
+
+En Git Bash / Linux / macOS:
+
+```bash
+docker compose exec -T db psql -U lsp -d diccionario_lsp < db/schema.sql
+docker compose exec -T db psql -U lsp -d diccionario_lsp < db/seeds/abecedario.sql
 ```
 
 O, si tienes el cliente `psql` instalado:
 
 ```bash
 psql postgresql://lsp:lsp_dev@localhost:5432/diccionario_lsp -f db/schema.sql
+psql postgresql://lsp:lsp_dev@localhost:5432/diccionario_lsp -f db/seeds/abecedario.sql
+```
+
+Verificación rápida — deben salir las 27 letras y las 3 dinámicas (J, Ñ, Z) intactas:
+
+```bash
+docker compose exec -T db psql -U lsp -d diccionario_lsp -c "SELECT COUNT(*) AS letras FROM palabra WHERE es_letra;"
+docker compose exec -T db psql -U lsp -d diccionario_lsp -c "SELECT texto FROM palabra WHERE NOT es_estatica ORDER BY texto;"
+```
+
+Los GIFs placeholder del abecedario ya están versionados en
+`media/gifs/abecedario/`. Para regenerarlos (requiere Pillow):
+
+```bash
+pip install pillow
+python db/seeds/generar_gifs_placeholder.py
 ```
 
 ### 2. Backend
@@ -129,7 +159,7 @@ python ml/scripts/evaluar.py             # accuracy, F1, precision/recall, matri
 
 ## Contenido
 
-En desarrollo solo se cargan los **seeds del alfabeto** con GIFs *placeholder* claramente marcados. El vocabulario real se incorpora con el módulo de importación:
+En desarrollo solo se cargan los **seeds del alfabeto** con GIFs *placeholder* claramente marcados (ver el paso [1. Base de datos](#1-base-de-datos)). El vocabulario real se incorpora con el módulo de importación:
 
 ```bash
 cd backend
