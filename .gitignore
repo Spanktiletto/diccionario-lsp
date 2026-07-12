@@ -23,6 +23,7 @@ frontend/coverage/
 ml/modelos/*.keras
 ml/modelos/*.h5
 ml/modelos/*.tflite
+ml/modelos/*.task
 ml/modelos/checkpoints/
 
 # ── Salidas de instrumentación (latencias, logs) ────────

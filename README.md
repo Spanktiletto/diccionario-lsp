@@ -149,13 +149,45 @@ cd frontend
 npm test           # frontend
 ```
 
-### 5. IA (entrenamiento y evaluación)
+### 5. IA (captura, entrenamiento y evaluación)
+
+Dependencias (las del backend ya incluyen TensorFlow/MediaPipe/OpenCV;
+los scripts de ML añaden scikit-learn y matplotlib):
 
 ```bash
-python ml/scripts/capturar_muestras.py   # captura vectores de landmarks (nunca imágenes)
-python ml/scripts/entrenar.py            # entrena la red densa 63→128→64→24
-python ml/scripts/evaluar.py             # accuracy, F1, precision/recall, matriz de confusión
+pip install -r ml/requirements.txt
+python ml/scripts/descargar_recursos.py   # detector de manos de MediaPipe (una vez)
 ```
+
+**1. Capturar muestras reales** (≥ 300 por letra, varias personas,
+variando ángulo, distancia, mano e iluminación — tesis §4.5.2). Solo se
+guardan vectores de landmarks en `ml/dataset/landmarks.csv`, jamás
+imágenes:
+
+```bash
+python ml/scripts/capturar_muestras.py --letra A --participante P01
+# ESPACIO = guardar · C = captura continua · ESC = salir
+# Repetir para las 24 letras estáticas (J, Z y Ñ no se capturan).
+```
+
+**2. Entrenar** la red densa 63→128→64→24 (hiperparámetros de la tesis;
+partición estratificada 70/15/15 reproducible):
+
+```bash
+python ml/scripts/entrenar.py
+```
+
+**3. Evaluar** sobre el conjunto de prueba (accuracy, F1 macro,
+precision/recall por clase y matriz de confusión en PNG — Capítulo V):
+
+```bash
+python ml/scripts/evaluar.py
+# → ml/modelos/matriz_confusion.png + ml/modelos/evaluacion.json
+```
+
+Con `ml/modelos/modelo.keras` presente, `POST /api/reconocer` empieza a
+predecir automáticamente (umbral de confianza 0.8); sin modelo responde
+503 y el resto del diccionario funciona con normalidad.
 
 ## Contenido
 

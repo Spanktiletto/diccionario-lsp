@@ -56,6 +56,9 @@ def reconocer():
         resultado = predictor.predecir(imagen)
     except predictor.ModeloNoDisponible as excepcion:
         return jsonify({"error": str(excepcion)}), 503
+    except ValueError as excepcion:
+        # base64 válido pero no era una imagen decodificable
+        return jsonify({"error": str(excepcion)}), 400
 
     dir_registros = current_app.config["DIR_REGISTROS"]
     latencia.registrar(

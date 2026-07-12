@@ -1,0 +1,6 @@
+# Dependencias de los scripts de ML (Python 3.11/3.12 — usar py -3.12).
+# Incluyen las del backend (tensorflow, mediapipe, opencv, numpy) más
+# las de evaluación y gráficos.
+-r ../backend/requirements.txt
+scikit-learn>=1.4
+matplotlib>=3.8
